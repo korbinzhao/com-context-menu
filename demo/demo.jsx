@@ -9,9 +9,8 @@ const columns1 = [
     name: "复制1",
     key: "copy",
     underLine: true, // 是否有分割线
-    onClick: () => {
-      const { dom } = this.state;
-      console.log(dom, "在这里可以自定义点击事件，信息都在dom里面");
+    onClick: (e) => {
+      console.log(e, "在这里可以自定义点击事件，信息都在dom里面");
     }
   },
   {
@@ -29,9 +28,8 @@ const columns2 = [
     name: "复制2",
     key: "copy",
     underLine: true, // 是否有分割线
-    onClick: () => {
-      const { dom } = this.state;
-      console.log(dom, "在这里可以自定义点击事件，信息都在dom里面");
+    onClick: (e) => {
+      console.log(e, "在这里可以自定义点击事件，信息都在dom里面");
     }
   },
   {
@@ -53,7 +51,7 @@ export default class Demo extends Component {
 
   componentWillMount() {}
 
-  getTargetDom = dom => {
+  onTargetRightClick = dom => {
     // 这个就是通过getTargetDom获取的目标节点的信息,自己把Dom存下来就行了,函数名字随便
     console.log(dom, "这个就是通过getTargetDom获取的目标节点的信息");
     this.setState({
@@ -86,7 +84,7 @@ export default class Demo extends Component {
         <ContentMenu
           actionScopeClassName="container1,container2" // 右键时出现自定义菜单的区域的类名 class
           columns={this.state.columns} // 右键菜单的内容
-          getTargetDom={this.getTargetDom} // 通过getTargetDom获取右键目标节点的全部信息
+          onTargetRightClick={this.onTargetRightClick} // 通过getTargetDom获取右键目标节点的全部信息
         />
       </div>
     );

@@ -4,11 +4,11 @@ import "./context-menu.less";
 
 class ContextMenu extends React.Component {
   static propTypes = {
-    getTargetDom: PropTypes.func
+    onTargetRightClick: PropTypes.func
   };
 
   static defaultProps = {
-    getTargetDom: () => {}
+    onTargetRightClick: () => {}
   };
 
   constructor(props) {
@@ -46,14 +46,18 @@ class ContextMenu extends React.Component {
   }
 
   handleContextMenu = event => {
-    const { getTargetDom, actionScopeClassName } = this.props;
+    const { onTargetRightClick, actionScopeClassName } = this.props;
 
     // 遍历当前元素及所有父类元素是否含有 actionScopeClassName 的类名，如果有，出现右侧菜单
     event &&
       event.path &&
       event.path.forEach(item => {
-        if (item.classList && this.containsInScopeClassNames(item.classList, actionScopeClassName)) {
-          getTargetDom(item);
+        if (
+          item.classList &&
+          this.containsInScopeClassNames(item.classList, actionScopeClassName)
+        ) {
+          onTargetRightClick(item);
+
           event.preventDefault();
           this.setState({ visible: true });
           const clickX = event.clientX;
