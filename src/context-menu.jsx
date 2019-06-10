@@ -45,8 +45,44 @@ class ContextMenu extends React.Component {
     return result;
   }
 
+  renderContextMenu(event, dom) {
+    const { onTargetRightClick } = this.props;
+
+    onTargetRightClick(dom);
+
+    this.setState({ visible: true });
+    const clickX = event.clientX;
+    const clickY = event.clientY;
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+    const rootW = this.root.offsetWidth;
+    const rootH = this.root.offsetHeight;
+    const right = screenW - clickX > rootW;
+    const left = !right;
+    const top = screenH - clickY > rootH;
+    const bottom = !top;
+
+    if (right) {
+      this.root.style.left = `${clickX + 5}px`;
+    }
+
+    if (left) {
+      this.root.style.left = `${clickX - rootW - 5}px`;
+    }
+
+    if (top) {
+      this.root.style.top = `${clickY + 5}px`;
+    }
+
+    if (bottom) {
+      this.root.style.top = `${clickY - rootH - 5}px`;
+    }
+  }
+
   handleContextMenu = event => {
-    const { onTargetRightClick, actionScopeClassName } = this.props;
+    const { actionScopeClassName } = this.props;
+
+    this.hasRendered = false;
 
     // 遍历当前元素及所有父类元素是否含有 actionScopeClassName 的类名，如果有，出现右侧菜单
     event &&
@@ -56,35 +92,11 @@ class ContextMenu extends React.Component {
           item.classList &&
           this.containsInScopeClassNames(item.classList, actionScopeClassName)
         ) {
-          onTargetRightClick(item);
-
           event.preventDefault();
-          this.setState({ visible: true });
-          const clickX = event.clientX;
-          const clickY = event.clientY;
-          const screenW = window.innerWidth;
-          const screenH = window.innerHeight;
-          const rootW = this.root.offsetWidth;
-          const rootH = this.root.offsetHeight;
-          const right = screenW - clickX > rootW;
-          const left = !right;
-          const top = screenH - clickY > rootH;
-          const bottom = !top;
 
-          if (right) {
-            this.root.style.left = `${clickX + 5}px`;
-          }
-
-          if (left) {
-            this.root.style.left = `${clickX - rootW - 5}px`;
-          }
-
-          if (top) {
-            this.root.style.top = `${clickY + 5}px`;
-          }
-
-          if (bottom) {
-            this.root.style.top = `${clickY - rootH - 5}px`;
+          if (!this.hasRendered) {
+            this.hasRendered = true; // 一次右键操作是否已经渲染出右键菜单
+            this.renderContextMenu(event, item);
           }
         }
       });
