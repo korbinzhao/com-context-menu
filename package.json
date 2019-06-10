@@ -65,8 +65,5 @@
     "prop-types": "^15.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npm.alibaba-inc.com"
   }
 }
