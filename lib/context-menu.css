@@ -1,0 +1,24 @@
+.com-context-menu-container {
+  z-index: 999;
+  position: fixed;
+  background: #fff;
+  border: 1px solid #DEE0EA;
+}
+.com-context-menu-container .context-menu-option {
+  padding: 6px 50px 5px 10px;
+  min-width: 152px;
+  cursor: default;
+  font-size: 12px;
+}
+.com-context-menu-container .context-menu-option:hover {
+  background: #F1F9FE;
+}
+.com-context-menu-container .context-menu-option:active {
+  background: #F1F9FE;
+}
+.com-context-menu-container .context-menu-separator {
+  width: 100%;
+  height: 1px;
+  background: #DEE0EA;
+  margin: 0 0 0 0;
+}
