@@ -1,6 +1,6 @@
 {
   "name": "com-context-menu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "右侧菜单组件",
   "main": "lib/index.js",
   "scripts": {
